@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { FotoModule } from './components/foto/foto.module'
 import { CabecalhoModule } from './components/cabecalho/cabecalho.module';
 import { CardModule } from './components/card/card.module';
+import { ListagemComponent } from './pages/listagem/listagem.component';
+import { CadastroComponent } from './pages/cadastro/cadastro.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ListagemComponent,
+    CadastroComponent
   ],
   imports: [
     BrowserModule,
