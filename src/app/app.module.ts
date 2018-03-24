@@ -12,6 +12,8 @@ import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { roteamento } from './roteamento';
 import { Page404Component } from './pages/page404/page404.component';
 
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,8 @@ import { Page404Component } from './pages/page404/page404.component';
     CabecalhoModule,
     HttpClientModule,
     CardModule,
-    roteamento
+    roteamento,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

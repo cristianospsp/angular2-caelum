@@ -20,6 +20,7 @@ export class ListagemComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/v1/fotos', { observe : 'response'})
     .subscribe((dados : HttpResponse<FotoComponent[]>) => {
       this.fotos = dados.body
+      console.log("Salvando foto...", this.fotos)
     })
   }
 
