@@ -9,19 +9,23 @@ import { CardModule } from './components/card/card.module';
 import { ListagemComponent } from './pages/listagem/listagem.component';
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 
+import { roteamento } from './roteamento';
+import { Page404Component } from './pages/page404/page404.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListagemComponent,
-    CadastroComponent
+    CadastroComponent,
+    Page404Component
   ],
   imports: [
     BrowserModule,
     FotoModule,
     CabecalhoModule,
     HttpClientModule,
-    CardModule
+    CardModule,
+    roteamento
   ],
   providers: [],
   bootstrap: [AppComponent]
