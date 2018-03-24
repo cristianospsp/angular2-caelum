@@ -1,0 +1,10 @@
+<cabecalho titulo="Caelumpic"></cabecalho>
+
+<div class="container">
+        <div class="row">
+<card *ngFor="let foto of fotos" titulo='{{ foto.titulo }}' descricao='{{ foto.descricao }}'
+    class="col-md-4">
+    <foto url='{{ foto.url }}' descricao='{{ foto.descricao }}' ></foto>
+</card>
+</div>
+</div>
