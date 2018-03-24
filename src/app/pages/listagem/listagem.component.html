@@ -1,10 +1,34 @@
-<cabecalho titulo="Caelumpic"></cabecalho>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <a class="navbar-brand" href="#">Caelumpic</a>
+  
+    <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/']">Fotos</a>
+      </li>
+      <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/cadastro']">Cadastro de Foto</a>
+          </li>
+    </ul>
+  
+    
+      <form class="form-inline">
+        <input #inputBuscar (input)=0 class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+    
+</nav>
+{{inputBuscar.value}}
+
+<cabecalho titulo="Listagem"></cabecalho>
 
 <div class="container">
   <div class="row">
-<card *ngFor="let foto of fotos" titulo='{{ foto.titulo }}' descricao='{{ foto.descricao }}'
-class="col-md-4">
-<foto url='{{ foto.url }}' descricao='{{ foto.descricao }}' ></foto>
-</card>
-</div>
+    <card *ngFor="let foto of fotos | filtraPorTitulo: inputBuscar.value" 
+    titulo='{{ foto.titulo }}' descricao='{{ foto.descricao }}'
+    class="col-md-4">
+      <foto url='{{ foto.url }}' descricao='{{ foto.descricao }}' ></foto>
+    </card>
+  </div>
 </div>
