@@ -8,19 +8,31 @@ export class FotoService {
 
     constructor(private httpClient: HttpClient) { }
 
+    URL: string = 'http://localhost:3000/v1/fotos';
+
     lista(): Observable<Object> {
         return this
-                    .httpClient
-                    .get('http://localhost:3000/v1/fotos', { observe : 'response'})
+            .httpClient
+            .get(this.URL, { observe: 'response' })
     }
 
-    salva(foto: FotoComponent): Observable<any> {
+    salva(foto: FotoComponent): Observable<Object> {
         return this.httpClient
-            .post('http://localhost:3000/v1/fotos', 
+            .post(this.URL,
                 JSON.stringify(foto),
                 {
-                    headers : new HttpHeaders({'Content-type' : 'application/json'})
+                    headers: new HttpHeaders({ 'Content-type': 'application/json' })
                 })
+    }
+
+    deleta(idFoto: string): Observable<Object> {
+        return this.httpClient.delete(`${this.URL}/${idFoto}`, { observe: 'response' })
+    }
+
+    buscaById(idFoto: string): Observable<any> {
+        return this
+            .httpClient
+            .get(`${this.URL}/${idFoto}`, { observe: 'response' });
     }
 
 }

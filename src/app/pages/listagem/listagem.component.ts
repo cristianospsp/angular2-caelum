@@ -29,4 +29,13 @@ export class ListagemComponent implements OnInit {
 
   }
 
+  removeFoto(idFoto: string) {
+    this.fotoService
+        .deleta(idFoto)
+        .subscribe((foto) => {
+          const fotosAtualizadas = this.fotos.filter(f => f._id !== idFoto)
+          this.fotos = fotosAtualizadas
+        });
+  }
+
 }
