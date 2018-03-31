@@ -1,8 +1,9 @@
+import { roteamento } from './../../roteamento';
 import { HttpResponse } from '@angular/common/http';
 import { FotoService } from './../../services/Foto.service';
 import { Component, OnInit } from '@angular/core';
 import { FotoComponent } from '../../components/foto/foto.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -14,33 +15,47 @@ export class CadastroComponent implements OnInit {
 
   foto: FotoComponent
 
-  constructor(private fotoService: FotoService, private rota: ActivatedRoute) {
+  constructor(private fotoService: FotoService, private rota: ActivatedRoute, private router: Router) {
     this.foto = new FotoComponent()
-    rota.params.subscribe((parametro) => {
-      const idDaFoto = parametro.id
-      console.log(idDaFoto)
-      this.fotoService
-          .buscaById(idDaFoto)
-          .subscribe((response : HttpResponse<FotoComponent>) => {
-            this.foto = response.body;
-          });
-    });
   }
 
   ngOnInit() {
+    this.rota.params.subscribe((parametro) => {
+      const idDaFoto = parametro.id
+      console.log(idDaFoto)
+      if (idDaFoto) {
+        this.fotoService
+          .findById(idDaFoto)
+          .subscribe((response: HttpResponse<FotoComponent>) => {
+            this.foto = response.body;
+          });
+      }
+    });
   }
 
   cadastraFoto(event: Event) {
     event.preventDefault()
 
-    this.fotoService
+    if (!this.foto._id) {
+      this.fotoService
       .salva(this.foto)
       .subscribe((response) => {
         console.log("Retorno... : ", response)
         this.foto = new FotoComponent()
+        console.log("Foto - Incluida...", this.foto)
       });
 
-    console.log("Salvando foto...", this.foto)
+    } else {
+      this.fotoService
+      .update(this.foto)
+      .subscribe((response) => {
+        this.router.navigate(['/'])
+        console.log("Foto - Alterada...", this.foto)
+      });
+
+    }
+  
+    
   }
 
 }

@@ -8,6 +8,8 @@ export class FotoService {
 
     constructor(private httpClient: HttpClient) { }
 
+    cabecalho : HttpHeaders = new HttpHeaders({ 'Content-type': 'application/json' });
+    
     URL: string = 'http://localhost:3000/v1/fotos';
 
     lista(): Observable<Object> {
@@ -21,18 +23,29 @@ export class FotoService {
             .post(this.URL,
                 JSON.stringify(foto),
                 {
-                    headers: new HttpHeaders({ 'Content-type': 'application/json' })
-                })
+                    headers: this.cabecalho
+                });
     }
 
     deleta(idFoto: string): Observable<Object> {
         return this.httpClient.delete(`${this.URL}/${idFoto}`, { observe: 'response' })
     }
 
-    buscaById(idFoto: string): Observable<any> {
+    findById(idFoto: string): Observable<any> {
         return this
             .httpClient
             .get(`${this.URL}/${idFoto}`, { observe: 'response' });
     }
 
+    update(foto): Observable<any> {
+        return this
+            .httpClient
+            .put(`${this.URL}/${foto._id}`, JSON.stringify(foto),
+            {
+                headers: this.cabecalho
+            });
+    }
+
+
+    
 }
