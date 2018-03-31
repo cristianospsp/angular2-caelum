@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { FotoComponent } from '../../components/foto/foto.component';
+import { FotoService } from '../../services/Foto.service';
 
 @Component({
   selector: 'listagem',
@@ -12,16 +13,20 @@ export class ListagemComponent implements OnInit {
   title: string = 'Caelumpic Gallery';
   fotos: FotoComponent[] = []
 
-  constructor(private httpClient: HttpClient) {
+  //private httpClient: HttpClient,
+
+  constructor(private fotoService: FotoService) {
     
   }
 
   ngOnInit() {
-    this.httpClient.get('http://localhost:3000/v1/fotos', { observe : 'response'})
-    .subscribe((dados : HttpResponse<FotoComponent[]>) => {
+
+    this.fotoService.lista()
+                    .subscribe((dados : HttpResponse<FotoComponent[]>) => {
       this.fotos = dados.body
       console.log("Salvando foto...", this.fotos)
     })
+
   }
 
 }
