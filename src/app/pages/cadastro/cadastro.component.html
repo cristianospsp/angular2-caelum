@@ -17,33 +17,41 @@
 
 <cabecalho titulo="Cadastro"></cabecalho>
 
-<form (submit)="cadastraFoto($event)">
+<form (submit)="cadastraFoto($event)" [formGroup]="formCadastro">
   <div class="container">
     <div class="row">
       <div class="col-md-8">
         <div class="form-group">
           <label for="url">URL</label>
-          <input type="text" name="url" class="form-control" id="url" placeholder="Informe a URL da foto" value="{{ foto.url }}" [(ngModel)]="foto.url">
+          <input formControlName="url" type="text" name="url" class="form-control" id="url" placeholder="Informe a URL da foto" value="{{ foto.url }}"
+            [(ngModel)]="foto.url">
+          <span *ngIf="formCadastro.controls.url.invalid" class="form-control alert alert-danger">
+            URL obrigatoria !
+          </span>
         </div>
         <div class="form-group">
           <label for="titulo">Titulo</label>
-          <input type="text" name="titulo" class="form-control" id="titulo" placeholder="Informe o Título da foto" [(ngModel)]="foto.titulo">
+          <input formControlName="titulo" type="text" name="titulo" class="form-control" id="titulo" placeholder="Informe o Título da foto"
+            [(ngModel)]="foto.titulo">
+          <span *ngIf="formCadastro.controls.titulo.invalid" class="form-control alert alert-danger">
+            Título obrigatorio !
+          </span>
         </div>
         <div class="form-group">
           <label for="descricao">Descricao</label>
-          <textarea name="descricao" class="form-control" id="descricao" placeholder="Informe uma descrição para foto" [(ngModel)]="foto.descricao">
+          <textarea formControlName="descricao"  name="descricao" class="form-control" id="descricao" placeholder="Informe uma descrição para foto" [(ngModel)]="foto.descricao">
       </textarea>
         </div>
-        <button type="submit" class="btn btn-success">
+        <button type="submit" class="btn btn-success" [disabled]="formCadastro.invalid">
           Salvar Foto
         </button>
         <button [routerLink]="['/']" class="btn btn-default">
           Voltar
         </button>
       </div>
-      
+
       <div class="col-md-4">
-          <card titulo='Preview' descricao='' class="col-md-4">
+        <card titulo='Preview' descricao='' class="col-md-4">
           <foto url='{{ foto.url }}'></foto>
         </card>
       </div>
